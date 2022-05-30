@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Home Page</title>
+        <link rel="stylesheet" href="/static/style.css" />
+    </head>
+
+    <body>
+        <h1>Clone non-officiel d’OpenClassrooms</h1>
+        
+        <div class="courses">
+            {% if data.courses|length == 0 %}
+            <div class="center">
+                <p>Cette page n’existe pas</p>
+            </div>
+            {% endif %}
+            {% for course in data.courses %}
+            <section>
+                <img src="{{ course.image_url }}" alt="">
+                <div class="introduction">
+                    <div class="category">{{ course.category }}</div>
+                    <div class="title">{{ course.title }}</div>
+                    <div class="informations">
+                        <span class="difficulty">Facile</span>
+                        <span class="estimated_duration">4 heures</span>
+                    </div>
+                    <div class="description">{{ course.description }}</div>
+                </div>
+            </section>
+            {% endfor %}
+        </div>
+
+        <ul class="pagination_section">
+            <li>
+                {# Le chevron doit être désactivé s'il n'y a pas de page précédente #}
+                {% if data.pagination|length == 0 %}
+                {% elif data.current_page|int != data.pagination|min %}
+                    <a href={{ url_for(request.endpoint, page=data.current_page|int - 1) }}><</a>
+                {% else %}
+                    <p class="active"><</p>         
+                {% endif %}
+            </li>
+            {% for page_number in data.pagination %}
+                <li>
+                {% if data.current_page|int == page_number%}
+                    <p class="active">{{ page_number }}</p>
+                {% else %}
+                    <a href={{ url_for(request.endpoint, page=page_number) }}>{{ page_number }}</a>
+                {% endif %}
+                <li>
+            {% endfor %}
+            <li>
+            {# Le chevron doit être désactivé si c'est la dernière page #}
+            {% if data.pagination|length == 0 %}
+            {% elif data.current_page|int != data.pagination|max %}
+                <a href={{ url_for(request.endpoint, page=data.current_page|int + 1) }}>></a>
+            {% else %}
+                <p class="active">></p>             
+            {% endif %}
+            </li>
+        </ul>
+    </body>
+</html>
