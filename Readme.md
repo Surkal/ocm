@@ -10,8 +10,8 @@
 
 ### Lancement du serveur local 
 
-`docker run -it --rm -p 5000:5000 ocm flask run --host=0.0.0.0`
+`docker run -it --rm -p 5000:5000 flask-ocm flask run --host=0.0.0.0`
 
-### Njut!
+### Résultat
 
 Visitez => http://localhost:5000

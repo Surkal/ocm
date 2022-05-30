@@ -12,6 +12,7 @@ WORKDIR $WORKING_DIR
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
+COPY requirements.txt $WORKING_DIR
 COPY /src $WORKING_DIR
 RUN pip3 install --no-cache-dir -r requirements.txt
 

@@ -112,12 +112,13 @@ def get_all_courses(courses):
     return page_courses
 
 def configure_browser():
-    # Virtual browser configuration
+    """Virtual browser configuration"""
     opts = FirefoxOptions()
     opts.add_argument("--headless")
     return webdriver.Firefox(options=opts)
 
 def extract_pagination(browser):
+    """Extract page numbers present in pagination."""
     css_selector = 'ul[class^=main-header-2-main-header] > li > button'
     elements = browser.find_elements(By.CSS_SELECTOR, css_selector)
     indexes = list(map(lambda x: x.text, elements))
